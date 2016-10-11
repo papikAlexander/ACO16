@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class University {
     private String name;
     private Group[] groups;
-    private int universeCount;
+    private int groupCount;
 
     public University(String name, int universeSize) {
         this.name = name;
@@ -16,10 +16,8 @@ public class University {
     }
 
     public boolean addGroup(Group group){
-        if (group == null) return false;
-        if (universeCount == groups.length) return false;
-        groups[universeCount] =  group;
-        universeCount++;
+        if (group == null || groupCount == groups.length) return false;
+        groups[groupCount++] =  group;
         return true;
     }
 
@@ -27,8 +25,8 @@ public class University {
         return groups;
     }
 
-    public int getUniverseCount() {
-        return universeCount;
+    public int getGroupCount() {
+        return groupCount;
     }
 
     public String getName() {
@@ -43,13 +41,10 @@ public class University {
     public boolean deleteGroup(String names){
 
         if (names == null) return false;
-        for (int i = 0; i < universeCount; i++) {
+        for (int i = 0; i < groupCount; i++) {
             if (names.equals(groups[i].getName())) {
-                groups[i] = null;
-                System.arraycopy(groups, i + 1, groups, i, universeCount - i);
-                /*students[i] = students[groupCount - 1];
-                students[groupCount - 1] = null;*/
-                universeCount--;
+                System.arraycopy(groups, i + 1, groups, i, groupCount - i - 1);
+                groups[--groupCount] = null;
                 return true;
             }
         }
