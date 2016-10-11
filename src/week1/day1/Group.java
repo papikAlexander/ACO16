@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Group {
     private String name;
     private Student[] students;
-    private int groupCount;
+    private int studentCount;
 
 
     public Group(String name, int groupSize) {
@@ -28,10 +28,6 @@ public class Group {
         return students;
     }
 
-    public void setStudents(Student[] students) {
-        this.students = students;
-    }
-
     @Override
     public String toString() {
         return "Group{" +
@@ -41,31 +37,25 @@ public class Group {
     }
 
     public boolean addStudent(Student student){
-        if (student == null) return false;
-        if (groupCount == students.length) return false;
-        students[groupCount] = student;
-        groupCount ++;
-
+        if (student == null || studentCount == students.length) return false;
+        students[studentCount++] = student;
         return true;
     }
 
-    public boolean deleteStudent(String names, String surnames){
-        if (names == null || surnames == null) return false;
-        for (int i = 0; i < groupCount; i++) {
-            if (names.equals(students[i].getName()) && surnames.equals(students[i].getSurname())) {
-                students[i] = null;
-                System.arraycopy(students, i + 1, students, i, groupCount - i);
-                /*students[i] = students[groupCount - 1];
-                students[groupCount - 1] = null;*/
-                groupCount--;
+    public boolean deleteStudent(String name, String surname){
+        if (name == null || surname == null) return false;
+        for (int i = 0; i < studentCount; i++) {
+            if (name.equals(students[i].getName()) && surname.equals(students[i].getSurname())) {
+                System.arraycopy(students, i + 1, students, i, studentCount - i - 1);
+                students[--studentCount] = null;
                 return true;
             }
         }
         return false;
     }
 
-    public int getGroupCount() {
-        return groupCount;
+    public int getStudentCount() {
+        return studentCount;
     }
 
     public void findStudent(String name){
@@ -73,7 +63,7 @@ public class Group {
             System.out.println("Please, enter name");
             return;
         }
-        for (int i = 0; i < groupCount; i++) {
+        for (int i = 0; i < studentCount; i++) {
             if(name.equals(students[i].getName())) {
                 System.out.printf("%s in this group", name);
                 return;
@@ -82,11 +72,8 @@ public class Group {
         System.out.println("Don't find this student in this group");
     }
     public void sortStudentByName(){
-        /*Student[] sortStudent = new Student[students.length];
-        System.arraycopy(students, 0, sortStudent, 0, students.length - 1);
-        sortStudent[0] = null;*/
-        for (int i = 0; i < groupCount; i++) {
-            for (int j = 0; j < groupCount - 1; j++) {
+        for (int i = 0; i < studentCount; i++) {
+            for (int j = 0; j < studentCount - 1; j++) {
                 if(students[j].getName().compareTo(students[j + 1].getName()) > 0){
                     Student tmp = students[j];
                     students[j] = students[j + 1];
