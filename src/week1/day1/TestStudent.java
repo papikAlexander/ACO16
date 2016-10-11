@@ -13,7 +13,9 @@ public class TestStudent {
         Group group = new Group("ACO16", 10);
         Group group1 = new Group("ACO17", 10);
         University university = new University("Art Code", 5);
-        university.addGroup(group);
+        group.addStudent(null);
+        System.out.println(group);
+       /* university.addGroup(group);
         System.out.println(university);
         university.addGroup(group1);
         group.addStudent(student2);
@@ -27,7 +29,7 @@ public class TestStudent {
         group.deleteStudent("Misha", "Smith");
         System.out.println(group);
        // System.out.println(university);
-        /*group.findStudent(null);
+        *//*group.findStudent(null);
         System.out.println(group);
         group.sortStudentByName();
         System.out.println(group);*/

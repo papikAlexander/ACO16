@@ -41,6 +41,7 @@ public class Group {
     }
 
     public boolean addStudent(Student student){
+        if (student == null) return false;
         if (groupCount == students.length) return false;
         students[groupCount] = student;
         groupCount ++;

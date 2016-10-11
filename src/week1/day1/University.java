@@ -16,6 +16,7 @@ public class University {
     }
 
     public boolean addGroup(Group group){
+        if (group == null) return false;
         if (universeCount == groups.length) return false;
         groups[universeCount] =  group;
         universeCount++;
