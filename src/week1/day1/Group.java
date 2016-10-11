@@ -52,8 +52,10 @@ public class Group {
         if (names == null || surnames == null) return false;
         for (int i = 0; i < groupCount; i++) {
             if (names.equals(students[i].getName()) && surnames.equals(students[i].getSurname())) {
-                students[i] = students[groupCount - 1];
-                students[groupCount - 1] = null;
+                students[i] = null;
+                System.arraycopy(students, i + 1, students, i, groupCount - i);
+                /*students[i] = students[groupCount - 1];
+                students[groupCount - 1] = null;*/
                 groupCount--;
                 return true;
             }

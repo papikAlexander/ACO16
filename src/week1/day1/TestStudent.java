@@ -22,15 +22,14 @@ public class TestStudent {
         group.addStudent(student4);
         group.addStudent(student1);
         //System.out.println(university);
-        university.deleteGroup("ACO17");
-      //  System.out.println(group);
-      //  group.deleteStudent("Misha", "Smith");
-      //  System.out.println(group);
+        //university.deleteGroup("ACO17");
+        System.out.println(group);
+        group.deleteStudent("Misha", "Smith");
+        System.out.println(group);
        // System.out.println(university);
-        group.findStudent(null);
+        /*group.findStudent(null);
         System.out.println(group);
         group.sortStudentByName();
-        System.out.println(group);
-        System.out.println("da".compareTo("m"));
+        System.out.println(group);*/
     }
 }

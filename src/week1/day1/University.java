@@ -44,8 +44,10 @@ public class University {
         if (names == null) return false;
         for (int i = 0; i < universeCount; i++) {
             if (names.equals(groups[i].getName())) {
-                groups[i] = groups[universeCount - 1];
-                groups[universeCount - 1] = null;
+                groups[i] = null;
+                System.arraycopy(groups, i + 1, groups, i, universeCount - i);
+                /*students[i] = students[groupCount - 1];
+                students[groupCount - 1] = null;*/
                 universeCount--;
                 return true;
             }
