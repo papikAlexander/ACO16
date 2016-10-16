@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>week1.homework.Interface.Directory</OriginalElement>
+  <nodes>
+    <node x="101.0" y="0.0">week1.homework.Interface.Edition</node>
+    <node x="182.0" y="313.0">week1.homework.Interface.Encyclopedia</node>
+    <node x="73.5" y="123.0">week1.homework.Interface.Book</node>
+    <node x="0.0" y="313.0">week1.homework.Interface.Directory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="week1.homework.Interface.Directory" target="week1.homework.Interface.Book">
+      <point x="0.0" y="-47.5" />
+      <point x="81.0" y="288.0" />
+      <point x="122.75" y="288.0" />
+      <point x="-49.25" y="70.0" />
+    </edge>
+    <edge source="week1.homework.Interface.Book" target="week1.homework.Interface.Edition">
+      <point x="0.0" y="-70.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="week1.homework.Interface.Encyclopedia" target="week1.homework.Interface.Book">
+      <point x="0.0" y="-47.5" />
+      <point x="263.0" y="288.0" />
+      <point x="221.25" y="288.0" />
+      <point x="49.25" y="70.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="101.0" y="253.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
