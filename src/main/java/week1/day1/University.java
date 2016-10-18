@@ -16,11 +16,12 @@ public class University {
     }
 
     public boolean addGroup(Group group){
-        for (int i = 0; i < groupCount; i++) {
-            if(group.equals(groups[i]))
-                return false;
-        }
         if (group == null || groupCount == groups.length) return false;
+        for (int i = 0; i < groupCount; i++) {
+            if(group.equals(groups[i])) {
+                return false;
+            }
+        }
         groups[groupCount++] =  group;
         return true;
     }
