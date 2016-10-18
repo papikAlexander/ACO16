@@ -10,10 +10,27 @@ public class Group {
     private Student[] students;
     private int studentCount;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Group group = (Group) o;
+
+        return this.name.equals(group.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
 
     public Group(String name, int groupSize) {
         this.name = name;
         this.students = new Student[groupSize];
+
+
     }
 
     public String getName() {
@@ -38,6 +55,9 @@ public class Group {
 
     public boolean addStudent(Student student){
         if (student == null || studentCount == students.length) return false;
+        for (int i = 0; i < studentCount; i++) {
+            if(student.equals(students[i])) return false;
+        }
         students[studentCount++] = student;
         return true;
     }
@@ -71,10 +91,21 @@ public class Group {
         }
         System.out.println("Don't find this student in this group");
     }
-    public void sortStudentByName(){
+   /* public void sortStudentByName(){
         for (int i = 0; i < studentCount; i++) {
             for (int j = 0; j < studentCount - 1; j++) {
                 if(students[j].getName().compareTo(students[j + 1].getName()) > 0){
+                    Student tmp = students[j];
+                    students[j] = students[j + 1];
+                    students[j + 1] = tmp;
+                }
+            }
+        }
+    }*/
+    public void sort(){
+        for (int i = 0; i < studentCount; i++) {
+            for (int j = 0; j < studentCount - 1; j++) {
+                if(students[j].compareTo(students[j + 1]) > 0){
                     Student tmp = students[j];
                     students[j] = students[j + 1];
                     students[j + 1] = tmp;
