@@ -34,46 +34,42 @@ public class MyArrayList {
 
     public boolean add(Object o) {
 
-        if(elementData.length - 1 == size){
+        if(elementData.length < size){
             ensureCapacity(elementData.length);
         }
-
-        System.out.println();
         elementData[size++] = o;
-
         return true;
     }
 
     public Object get(int index){
-        if (index > elementData.length - 1){
+        if(index < 0) return null;
+        if (index >= elementData.length){
             return null;
         }
         return elementData[index];
     }
 
-    public boolean add(int index, Object o) {
-        if(o == null) return true;
-
-        while(elementData.length - 1 < index){
-            ensureCapacity(elementData.length);
+    public void add(int index, Object o) {
+        if (index < 0 || index > size) {
+            System.out.println("IndexOutOfBoundsException");
+            return;
         }
+        if(o.equals(null)) return;
 
         elementData[index] = o;
 
-        return true;
     }
 
-    public boolean clear() {
+    public void clear() {
         for (int i = 0; i < size; i++) {
             elementData[i] = null;
         }
         size = 0;
-        return true;
     }
 
     public boolean contains(Object o) {
         for (int i = 0; i < size; i++) {
-            if (o == elementData[i]) return true;
+            if (o.equals(elementData[i])) return true;
         }
         return false;
     }
@@ -81,21 +77,20 @@ public class MyArrayList {
 
     public boolean remove(int index) {
 
-        if(size < index) return false;
+        if(size < index || index < 0) return false;
 
         System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
-        elementData[size--] = null;
+        elementData[--size] = null;
         return true;
     }
 
     public boolean remove(Object o) {
 
-        if(o == null) return false;
+        if(o.equals(null)) return false;
 
         for (int i = 0; i < size; i++) {
-            if(elementData[i] == o){
-                System.arraycopy(elementData, i + 1, elementData, i, size - i - 1);
-                elementData[size--] = null;
+            if(elementData[i].equals(o)){
+                this.remove(i);
                 return true;
             }
         }
@@ -103,11 +98,12 @@ public class MyArrayList {
     }
 
     public boolean set(int index, Object o) {
-        if(o == null) return false;
-
-        while(elementData.length - 1 < index){
-            ensureCapacity(elementData.length);
+        if (index < 0 || index > size) {
+            System.out.println("IndexOutOfBoundsException");
+            return false;
         }
+        if(o.equals(null)) return false;
+
         elementData[index] = o;
         return true;
     }
