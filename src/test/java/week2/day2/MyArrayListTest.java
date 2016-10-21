@@ -34,11 +34,16 @@ public class MyArrayListTest {
 
     @Test
     public void testArrayListAdd2(){
+        myArrayList.add("1");
+        myArrayList.add("1");
+        myArrayList.add("1");
+        myArrayList.add("1");
+        System.out.println(myArrayList.size());
+        myArrayList.add(2, "2");
+        System.out.println(myArrayList.size());
+        Object actual =  myArrayList.get(4);
 
-        myArrayList.add(3, "2");
-        Object actual =  myArrayList.get(3);
-
-        Assert.assertEquals("2", actual);
+        Assert.assertEquals("1", actual);
     }
 
     @Test
@@ -90,10 +95,23 @@ public class MyArrayListTest {
     }
 
     @Test
+    public  void testArrayListContainsAfterClear(){
+
+        myArrayList.add("1");
+        myArrayList.add(5);
+        myArrayList.clear();
+
+        boolean actual = myArrayList.contains(1);
+        System.out.println(myArrayList.contains("1"));
+        Assert.assertFalse(actual);
+    }
+
+    @Test
     public void testArrayListContains(){
         myArrayList.add("1");
         myArrayList.add(1);
         boolean actual = myArrayList.contains(1);
+
         Assert.assertTrue(actual);
     }
 
@@ -110,9 +128,9 @@ public class MyArrayListTest {
     @Test
     public void testArrayListRemoveObject(){
 
-        myArrayList.add("1");
+        myArrayList.add(null);
         myArrayList.add(1);
-        myArrayList.remove("1");
+        myArrayList.remove(null);
         Object actual = myArrayList.get(0);
         Assert.assertEquals(1, actual);
     }

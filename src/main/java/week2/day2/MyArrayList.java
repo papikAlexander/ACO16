@@ -42,10 +42,7 @@ public class MyArrayList {
     }
 
     public Object get(int index){
-        if(index < 0) return null;
-        if (index >= elementData.length){
-            return null;
-        }
+        if(index < 0 || index >= elementData.length) return null;
         return elementData[index];
     }
 
@@ -56,6 +53,7 @@ public class MyArrayList {
         }
         if(o.equals(null)) return;
 
+        System.arraycopy(elementData, index, elementData, index + 1, size++ - index);
         elementData[index] = o;
 
     }
@@ -68,6 +66,7 @@ public class MyArrayList {
     }
 
     public boolean contains(Object o) {
+        if(size == 0) return false;
         for (int i = 0; i < size; i++) {
             if (o.equals(elementData[i])) return true;
         }
@@ -86,12 +85,19 @@ public class MyArrayList {
 
     public boolean remove(Object o) {
 
-        if(o.equals(null)) return false;
-
-        for (int i = 0; i < size; i++) {
-            if(elementData[i].equals(o)){
-                this.remove(i);
-                return true;
+        if (o == null){
+            for (int i = 0; i < size; i++) {
+                if (elementData[i] == null) {
+                    this.remove(i);
+                    return true;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (elementData[i].equals(o)) {
+                    this.remove(i);
+                    return true;
+                }
             }
         }
         return false;
