@@ -1,11 +1,11 @@
-package week2.day2;
+package myList;
 
 import java.lang.reflect.Array;
 
 /**
  * Created by Alexander on 16.10.2016.
  */
-public class MyArrayList {
+public class MyArrayList implements MyList{
     private Object[] elementData;
     private int size;
     private int defaultCapacity = 10;
@@ -18,6 +18,7 @@ public class MyArrayList {
         elementData = new Object[capacity];
     }
 
+    @Override
     public int size() {
         return size;
     }
@@ -32,6 +33,7 @@ public class MyArrayList {
         return true;
     }
 
+    @Override
     public boolean add(Object o) {
 
         if(elementData.length < size){
@@ -41,16 +43,18 @@ public class MyArrayList {
         return true;
     }
 
+    @Override
     public Object get(int index){
         if(index < 0 || index >= elementData.length) return null;
         return elementData[index];
     }
 
+    @Override
     public void add(int index, Object o) {
-        if (index < 0 || index > size) {
-            System.out.println("IndexOutOfBoundsException");
-            return;
+        if(elementData.length < size){
+            ensureCapacity(elementData.length);
         }
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
         if(o.equals(null)) return;
 
         System.arraycopy(elementData, index, elementData, index + 1, size++ - index);
@@ -58,6 +62,7 @@ public class MyArrayList {
 
     }
 
+    @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             elementData[i] = null;
@@ -65,15 +70,16 @@ public class MyArrayList {
         size = 0;
     }
 
+    @Override
     public boolean contains(Object o) {
-        if(size == 0) return false;
-        for (int i = 0; i < size; i++) {
-            if (o.equals(elementData[i])) return true;
+        int index = this.indexOf(o);
+        if(index >= 0){
+            return true;
         }
         return false;
     }
 
-
+    @Override
     public boolean remove(int index) {
 
         if(size < index || index < 0) return false;
@@ -83,31 +89,39 @@ public class MyArrayList {
         return true;
     }
 
-    public boolean remove(Object o) {
-
+    @Override
+    public int indexOf(Object o){
         if (o == null){
             for (int i = 0; i < size; i++) {
                 if (elementData[i] == null) {
-                    this.remove(i);
-                    return true;
+                    return i;
                 }
             }
         } else {
             for (int i = 0; i < size; i++) {
-                if (elementData[i].equals(o)) {
-                    this.remove(i);
-                    return true;
+                if (o.equals(elementData[i])) {
+                    return i;
                 }
             }
+        }
+        return -1;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        int index = this.indexOf(o);
+        if(index >= 0){
+            this.remove(index);
+            return true;
         }
         return false;
     }
 
+    @Override
     public boolean set(int index, Object o) {
-        if (index < 0 || index > size) {
-            System.out.println("IndexOutOfBoundsException");
-            return false;
-        }
+
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+
         if(o.equals(null)) return false;
 
         elementData[index] = o;

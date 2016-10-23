@@ -3,7 +3,7 @@ package week2.day2.library;
 /**
  * Created by Alexander on 16.10.2016.
  */
-public abstract class PereodicalIssue {
+public abstract class PeriodicalIssue {
     private String year;
     private String author;
 

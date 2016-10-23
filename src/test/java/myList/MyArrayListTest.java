@@ -1,5 +1,6 @@
-package week2.day2;
+package myList;
 
+import myList.MyArrayList;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

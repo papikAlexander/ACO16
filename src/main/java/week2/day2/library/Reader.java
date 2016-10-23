@@ -9,7 +9,7 @@ public class Reader {
     private static final int MAX_BOOK = 3;
     private String name;
     private String surname;
-    private ArrayList<PereodicalIssue> issue = new ArrayList<>(MAX_BOOK);
+    private ArrayList<PeriodicalIssue> issue = new ArrayList<>(MAX_BOOK);
     private boolean isBlackList;
 
     public String getName() {
@@ -34,7 +34,7 @@ public class Reader {
         this.isBlackList = isBlackList;
     }
 
-    public boolean getBook(PereodicalIssue issue){
+    public boolean getBook(PeriodicalIssue issue){
         if(this.isBlackList == false){
             if (this.issue.size() < MAX_BOOK){
                 this.issue.add(issue);
