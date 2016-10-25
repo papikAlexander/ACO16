@@ -7,7 +7,7 @@ import myList.MyArrayList;
  */
 public class Car {
     private String model;
-    public static MyArrayList wheels = new MyArrayList(4);
+    public MyArrayList wheels = new MyArrayList(4);
     private Motor motor;
 
     public Car(String model, Motor motor) {

@@ -12,13 +12,12 @@ public class Test {
         Wheel wheel3 = new Wheel("Rosava", SeasonWheel.SUMMER);
         Wheel wheel4 = new Wheel("Rosava", SeasonWheel.SUMMER);
 
-        Car.wheels.add(wheell);
-        Car.wheels.add(wheel2);
-        Car.wheels.add(wheel3);
-        Car.wheels.add(wheel4);
-
-
         Car car = new Car("BMW", motor);
+        car.wheels.add(wheell);
+        car.wheels.add(wheel2);
+        car.wheels.add(wheel3);
+        car.wheels.add(wheel4);
+
         System.out.println(car);
         car.drive();
         car.refuel();
