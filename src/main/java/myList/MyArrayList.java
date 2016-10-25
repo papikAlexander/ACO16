@@ -51,11 +51,12 @@ public class MyArrayList implements MyList{
 
     @Override
     public void add(int index, Object o) {
+
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+
         if(elementData.length < size){
             ensureCapacity(elementData.length);
         }
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
-        if(o.equals(null)) return;
 
         System.arraycopy(elementData, index, elementData, index + 1, size++ - index);
         elementData[index] = o;
