@@ -5,7 +5,7 @@ package week1.homework.task3;
  */
 public abstract class Flower {
 
-    private int cost;
+    protected int cost;
     private int fresh;
     private int length;
 
@@ -27,13 +27,6 @@ public abstract class Flower {
 
     public int getFresh() {
         return fresh;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-    public void setCost(int cost) {
-        this.cost = cost;
     }
 
 }

@@ -7,7 +7,7 @@ public class Rose extends Flower {
 
     @Override
     public String toString() {
-        return "Rose{Cost - " + getCost() + "; Days after cut rose " + getFresh() + "; Length - " + getLength() + "}";
+        return "Rose{Cost - " + cost + "; Days after cut rose " + getFresh() + "; Length - " + getLength() + "}";
     }
 
     public Rose(int cost, int afterCutDay, int length) {
@@ -16,6 +16,6 @@ public class Rose extends Flower {
 
     @Override
     public void price() {
-        System.out.printf("Rose cost - %d UAH" + this.getCost());
+        System.out.printf("Rose cost - %d UAH" + this.cost);
     }
 }

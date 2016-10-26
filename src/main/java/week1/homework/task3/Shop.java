@@ -9,8 +9,9 @@ public class Shop {
         Flower rose2 = new Rose(30, 5, 30);
         Flower chrysanthemum = new Chrysanthemum(20, 4, 25);
         Flower tulip = new Tulip(20, 1, 35);
+        Accessory accessory = new Accessory(2, 10, 50);
 
-        Bouquet bouquet = new Bouquet(4, 3);
+        Bouquet bouquet = new Bouquet(50, 5, accessory);
         bouquet.flowers.add(rose);
         bouquet.flowers.add(rose2);
         bouquet.flowers.add(chrysanthemum);

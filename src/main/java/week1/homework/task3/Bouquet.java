@@ -6,24 +6,30 @@ import java.util.Comparator;
 /**
  * Created by Alexander on 25.10.2016.
  */
-public class Bouquet extends Accessory {
+public class Bouquet {
 
     public ArrayList<Flower> flowers;
+    public Accessory accessory;
+    private int length;
+    private int number;
 
     @Override
     public String toString() {
         return "Bouquet{" +
-                "flowers=" + flowers +
+                "flowers=" + flowers + "; accessory = "+ accessory +
                 '}';
     }
 
-    public Bouquet(int length) {
-        super(length);
+    public Bouquet(int length, Accessory accessory) {
+        this.accessory = accessory;
+        this.length = length;
         flowers = new ArrayList<>();
     }
 
-    public Bouquet(int length, int number) {
-        super(length, number);
+    public Bouquet(int length, int number, Accessory accessory) {
+        this.accessory = accessory;
+        this.length = length;
+        this.number = number;
         flowers = new ArrayList<>(number);
     }
 
@@ -34,9 +40,9 @@ public class Bouquet extends Accessory {
     public String price(){
         int tmp = 0;
         for (int i = 0; i < flowers.size(); i++) {
-            tmp += flowers.get(i).getCost();
+            tmp += flowers.get(i).cost;
         }
-        return "Bouquet cost - " + tmp * getAccessory() + " UAN";
+        return "Bouquet cost - " + tmp * accessory.cost() + " UAN";
     }
 
     public Flower findFlowerByLength(int length){

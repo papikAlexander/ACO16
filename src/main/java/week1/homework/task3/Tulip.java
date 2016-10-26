@@ -7,7 +7,7 @@ public class Tulip extends Flower{
 
     @Override
     public String toString() {
-        return "Tulip{Cost - " + getCost() + "; Days after cut tulip " + getFresh() + "; Length - " + getLength() + "}";
+        return "Tulip{Cost - " + cost + "; Days after cut tulip " + getFresh() + "; Length - " + getLength() + "}";
     }
 
     public Tulip(int cost, int afterCutDay, int length) {
@@ -16,6 +16,6 @@ public class Tulip extends Flower{
 
     @Override
     public void price() {
-        System.out.printf("Tulip cost - %d UAH" + this.getCost());
+        System.out.printf("Tulip cost - %d UAH" + this.cost);
     }
 }
