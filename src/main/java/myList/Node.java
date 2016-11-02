@@ -1,8 +1,11 @@
+/*
 package myList;
 
+*/
 /**
  * Created by Alexander on 23.10.2016.
- */
+ *//*
+
 public class Node {
     private Node next;
     private Node previous;
@@ -48,3 +51,4 @@ public class Node {
 
     }
 }
+*/

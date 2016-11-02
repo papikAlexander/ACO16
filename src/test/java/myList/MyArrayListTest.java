@@ -8,25 +8,24 @@ import org.junit.Test;
 /**
  * Created by Alexander on 16.10.2016.
  */
-public class MyArrayListTest {
-    MyArrayList myArrayList;
+public class MyArrayListTest implements MyListTest{
+    private MyArrayList<Object> myArrayList;
 
     @Before
     public  void init(){
-        myArrayList = new MyArrayList();
+        myArrayList = new MyArrayList<>();
     }
 
     @Test
-    public void testArrayListSize(){
+    public void testListSize(){
 
         myArrayList.add("1");
-
         int actual = myArrayList.size();
 
         Assert.assertEquals(1, actual);
     }
     @Test
-    public void testArrayListAdd(){
+    public void testListAdd(){
 
         boolean actual = myArrayList.add("1");
 
@@ -34,7 +33,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListAdd2(){
+    public void testListIndexAdd(){
         myArrayList.add("1");
         myArrayList.add("1");
         myArrayList.add("1");
@@ -48,7 +47,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListSizeAfterAdd(){
+    public void testListSizeAfterAdd(){
 
         myArrayList.add("1");
 
@@ -56,7 +55,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListGet(){
+    public void testListGet(){
 
         myArrayList.add("1");
         myArrayList.add("5");
@@ -67,18 +66,17 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListGet2(){
+    public void testListGetNull(){
 
         myArrayList.add("1");
         myArrayList.add("5");
         Object actual = myArrayList.get(20);
-        Object expected = null;
 
-        Assert.assertEquals(actual, expected);
+        Assert.assertEquals(actual, null);
     }
 
     @Test
-    public  void testArrayListClear(){
+    public void testListClear(){
 
         myArrayList.add("1");
         myArrayList.add(5);
@@ -96,7 +94,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public  void testArrayListContainsAfterClear(){
+    public void testListContainsAfterClear(){
 
         myArrayList.add("1");
         myArrayList.add(5);
@@ -108,7 +106,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListContains(){
+    public void testListContains(){
         myArrayList.add("1");
         myArrayList.add(1);
         boolean actual = myArrayList.contains(1);
@@ -117,7 +115,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListRemoveIndex(){
+    public void testListRemoveIndex(){
 
         myArrayList.add("1");
         myArrayList.add(1);
@@ -127,7 +125,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListRemoveObject(){
+    public void testListRemoveObject(){
 
         myArrayList.add(null);
         myArrayList.add(1);
@@ -137,11 +135,20 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void testArrayListSet(){
+    public void testListSet(){
         myArrayList.add("1");
         myArrayList.add(25);
         myArrayList.set(0, "5");
         Object actual = myArrayList.get(0);
         Assert.assertEquals("5", actual);
+    }
+
+    @Test
+    public void testIterator() {
+        myArrayList.add("1");
+        myArrayList.add("2");
+        myArrayList.add("3");
+
+
     }
 }

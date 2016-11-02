@@ -1,5 +1,6 @@
 package week2.day2.library.config;
 
+import week2.day2.library.dao.IssueDao;
 import week2.day2.library.dao.ReaderDao;
 import week2.day2.library.database.LibraryDB;
 
@@ -10,9 +11,12 @@ public class ApplicationContext {
 
     private LibraryDB libraryDB = LibraryDB.getLibraryDBInstance();
     private ReaderDao readerDao = new ReaderDao();
+    private IssueDao issueDao = new IssueDao();
+
     private static ApplicationContext instance;
 
     public static ApplicationContext getInstance(){
+
         if(instance == null){
             synchronized (ApplicationContext.class){
                 if (instance == null){
@@ -29,5 +33,9 @@ public class ApplicationContext {
 
     public ReaderDao getReaderDao() {
         return readerDao;
+    }
+
+    public IssueDao getIssueDao() {
+        return issueDao;
     }
 }

@@ -5,6 +5,6 @@ package week3.day2.singelton;
  */
 public class TestSingle {
     public static void main(String[] args) {
-        Singeltone singletone = Singeltone.getInstance();
+        Singletone singletone = Singletone.getInstance();
     }
 }

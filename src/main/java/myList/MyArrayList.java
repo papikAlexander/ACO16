@@ -1,21 +1,22 @@
 package myList;
 
 import java.lang.reflect.Array;
+import java.util.Iterator;
 
 /**
  * Created by Alexander on 16.10.2016.
  */
-public class MyArrayList implements MyList{
-    private Object[] elementData;
+public class MyArrayList<T> implements MyList<T>{
+    private T[] elementData;
     private int size;
     private int defaultCapacity = 10;
 
     public MyArrayList(){
-        elementData = new Object[defaultCapacity];
+        elementData = (T[]) new Object[defaultCapacity];
     }
 
     public MyArrayList(int capacity){
-        elementData = new Object[capacity];
+        elementData = (T[]) new Object[capacity];
     }
 
     @Override
@@ -26,15 +27,15 @@ public class MyArrayList implements MyList{
     private boolean ensureCapacity(int oldCapacity){
 
         int newCapacity = (oldCapacity * 3) / 2 + 1;
-        Object[] tmp = elementData;
-        elementData = new Object[newCapacity];
+        T[] tmp = elementData;
+        elementData = (T[]) new Object[newCapacity];
         System.arraycopy(tmp, 0, elementData, 0, size);
 
         return true;
     }
 
     @Override
-    public boolean add(Object o) {
+    public boolean add(T o) {
 
         if(elementData.length < size){
             ensureCapacity(elementData.length);
@@ -44,13 +45,13 @@ public class MyArrayList implements MyList{
     }
 
     @Override
-    public Object get(int index){
+    public T get(int index){
         if(index < 0 || index >= elementData.length) return null;
         return elementData[index];
     }
 
     @Override
-    public void add(int index, Object o) {
+    public void add(int index, T o) {
 
         if (index < 0 || index > size) throw new IndexOutOfBoundsException();
 
@@ -72,7 +73,7 @@ public class MyArrayList implements MyList{
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(T o) {
         int index = this.indexOf(o);
         if(index >= 0){
             return true;
@@ -81,17 +82,7 @@ public class MyArrayList implements MyList{
     }
 
     @Override
-    public boolean remove(int index) {
-
-        if(size < index || index < 0) return false;
-
-        System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
-        elementData[--size] = null;
-        return true;
-    }
-
-    @Override
-    public int indexOf(Object o){
+    public int indexOf(T o){
         if (o == null){
             for (int i = 0; i < size; i++) {
                 if (elementData[i] == null) {
@@ -109,7 +100,17 @@ public class MyArrayList implements MyList{
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(int index) {
+
+        if(size < index || index < 0) return false;
+
+        System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
+        elementData[--size] = null;
+        return true;
+    }
+
+    @Override
+    public boolean remove(T o) {
         int index = this.indexOf(o);
         if(index >= 0){
             this.remove(index);
@@ -119,7 +120,7 @@ public class MyArrayList implements MyList{
     }
 
     @Override
-    public boolean set(int index, Object o) {
+    public boolean set(int index, T o) {
 
         if (index < 0 || index > size) throw new IndexOutOfBoundsException();
 
@@ -127,5 +128,23 @@ public class MyArrayList implements MyList{
 
         elementData[index] = o;
         return true;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new MyArrayListIterator();
+    }
+
+    private class MyArrayListIterator implements Iterator<T> {
+        private int currentPosition;
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size;
+        }
+
+        @Override
+        public T next() {
+            return elementData[currentPosition++];
+        }
     }
 }
