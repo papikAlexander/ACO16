@@ -46,7 +46,7 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public T get(int index){
-        if(index < 0 || index >= elementData.length) return null;
+        if(index < 0 || index >= elementData.length) throw new IndexOutOfBoundsException();
         return elementData[index];
     }
 
@@ -100,13 +100,13 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public boolean remove(int index) {
+    public T remove(int index) {
 
-        if(size < index || index < 0) return false;
-
+        if(size < index || index < 0) return null;
+        T tmp = elementData[index];
         System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
         elementData[--size] = null;
-        return true;
+        return tmp;
     }
 
     @Override
@@ -120,14 +120,14 @@ public class MyArrayList<T> implements MyList<T>{
     }
 
     @Override
-    public boolean set(int index, T o) {
+    public T set(int index, T o) {
 
         if (index < 0 || index > size) throw new IndexOutOfBoundsException();
 
-        if(o.equals(null)) return false;
-
+        if(o.equals(null)) return null;
+        T tmp = elementData[index];
         elementData[index] = o;
-        return true;
+        return tmp;
     }
 
     @Override

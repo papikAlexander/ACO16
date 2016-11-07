@@ -1,15 +1,16 @@
 package myList;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Alexander on 23.10.2016.
  */
-public class MyLinkedList<T> implements MyList<T>{
+public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
     private int size;
-    private Node<T> head;
-    private Node<T> tail;
+    private Node<E> head = new Node<>();
+    private Node<E> tail;
 
     public MyLinkedList() {
     }
@@ -18,7 +19,7 @@ public class MyLinkedList<T> implements MyList<T>{
         return size;
     }
 
-    public boolean add(T o){
+    public boolean add(E o){
 
         if(tail == null){
             head = tail = new Node<>(o);
@@ -34,15 +35,49 @@ public class MyLinkedList<T> implements MyList<T>{
     }
 
     @Override
-    public void add(int index, T o) {
-
-    }
-
-    public T get(int index){
+    public void add(int index, E o) {
 
         checkIndex(index);
 
-        Node<T> iterator = head;
+        if (index == 0){
+            addFirst(o);
+            return;
+        }
+
+        Node<E> iterator = head;
+        Node<E> previous;
+        Node<E> tmp = new Node<>(o);
+        for (int i = 1; i <= index; i++) {
+            iterator = iterator.getNext();
+        }
+        previous = iterator.getPrevious();
+        previous.setNext(tmp);
+        iterator.setPrevious(tmp);
+
+        tmp.setNext(iterator);
+        tmp.setPrevious(previous);
+        size++;
+
+    }
+
+    @Override
+    public void addFirst(E e) {
+        head.setPrevious(new Node<>(head, null, e));
+        head = head.getPrevious();
+        size++;
+        return;
+    }
+
+    @Override
+    public void addLast(E e) {
+        add(e);
+    }
+
+    public E get(int index){
+
+        checkIndex(index);
+
+        Node<E> iterator = head;
         for (int i = 1; i <= index; i++) {
             iterator = iterator.getNext();
         }
@@ -51,105 +86,302 @@ public class MyLinkedList<T> implements MyList<T>{
     }
 
     @Override
+    public E getFirst() {
+        checkEmpty();
+        return head.value;
+    }
+
+    @Override
+    public E getLast() {
+        checkEmpty();
+        return tail.value;
+    }
+
+    @Override
     public void clear() {
+        Node<E> iterator = head;
+        Node<E> previous = iterator;
 
+        for (int i = 0; i < size; i++) {
+            previous = iterator;
+            iterator.setPrevious(null);
+            iterator = iterator.getNext();
+            previous.setNext(null);
+        }
+        size = 0;
     }
 
     @Override
-    public boolean contains(T o) {
+    public boolean contains(E o) {
+        if (indexOf(o) >= 0) return true;
         return false;
     }
 
     @Override
-    public boolean remove(int index) {
-        return false;
+    public E remove(int index) {
+
+        checkIndex(index);
+
+        if (index == 0){
+            remove();
+        }
+        if (index == size - 1){
+            removeLast();
+            return head.getValue();
+        }
+
+        Node<E> iterator = head;
+        for (int i = 1; i < index; i++) {
+            iterator = iterator.getNext();
+        }
+        iterator.setNext(iterator.getNext().getNext());
+        iterator = iterator.getNext();
+        iterator.setPrevious(iterator.getPrevious().getPrevious());
+        size--;
+        return head.getValue();
     }
 
     @Override
-    public boolean remove(T o) {
-        return false;
+    public boolean remove(E o) {
+        int index = indexOf(o);
+        if (index < 0) {
+            return false;
+        } else {
+            remove(index);
+            return true;
+        }
     }
 
     @Override
-    public int indexOf(T o) {
-
-        return 0;
+    public E remove() {
+        checkEmpty();
+        Node<E> iterator = head;
+        head = head.getNext();
+        head.setPrevious(null);
+        iterator.setNext(null);
+        size--;
+        return head.getValue();
     }
 
     @Override
-    public boolean set(int index, T o) {
-        return false;
+    public E removeFirst() {
+        checkEmpty();
+        return remove();
+    }
+
+    @Override
+    public E removeLast() {
+        checkEmpty();
+
+        Node<E> iterator = tail;
+        tail = tail.getPrevious();
+        tail.setNext(null);
+        iterator.setPrevious(null);
+        size--;
+        return tail.getValue();
+    }
+
+    @Override
+    public int indexOf(E o) {
+
+        Node<E> iterator = head;
+
+        for (int i = 0; i < size; i++) {
+            if (iterator.value.equals(o)) return i;
+            iterator = iterator.getNext();
+        }
+
+        return -1;
+    }
+
+    @Override
+    public E set(int index, E o) {
+
+        checkIndex(index);
+
+        if (index == 0){
+
+            head = new Node<>(head.getNext(), null, o);
+            Node<E> iterator = head.getNext();
+            iterator.setPrevious(head);
+            return head.getValue();
+        }
+        if (index == size - 1){
+            tail = new Node<>(null, tail.getPrevious(), o);
+            Node<E> iterator = tail.getPrevious();
+            iterator.setNext(tail);
+            return head.getValue();
+        }
+
+        Node<E> iterator = head;
+        Node<E> newNode = new Node<>(o);
+
+        for (int i = 1; i <= index; i++) {
+            iterator = iterator.getNext();
+        }
+
+        newNode.setNext(iterator.getNext());
+        newNode.setPrevious(iterator.getPrevious());
+        iterator = iterator.getPrevious();
+        iterator.setNext(newNode);
+        iterator = iterator.getNext().getNext();
+        iterator.setPrevious(newNode);
+
+        return head.getValue();
+    }
+
+    private void checkEmpty(){
+        if (size == 0) throw new NoSuchElementException();
     }
 
     private void checkIndex(int index) {
+
         if(index < 0 || index >= size) throw new IndexOutOfBoundsException();
     }
 
+    private void checkObject(E o){
+
+        if (o == null) throw new NullPointerException();
+    }
+
     @Override
-    public Iterator<T> iterator() {
+    public Iterator<E> iterator() {
 
         return new MyLinkedListIterator();
     }
 
-    private static class Node<T> {
-        private Node<T> next;
-        private Node<T> previous;
+    @Override
+    public boolean offer(E o) {
+        return add(o);
+    }
 
-        private T value;
+    @Override
+    public boolean offerFirst(E e) {
+        addFirst(e);
+        return true;
+    }
 
-        Node(){
+    @Override
+    public boolean offerLast(E e) {
+        add(e);
+        return true;
+    }
 
-        }
-        public Node(Node<T> next, Node<T> previous, T value) {
+    @Override
+    public E peek() {
+
+        if (size == 0) return null;
+
+        Node<E> tmp = head;
+        head.setValue(null);
+        return tmp.getValue();
+    }
+
+    @Override
+    public E peekFirst() {
+        if (size == 0) return null;
+        return peek();
+    }
+
+    @Override
+    public E peekLast() {
+        if (size == 0) return null;
+        Node<E> tmp = tail;
+        tail.setValue(null);
+        return tmp.getValue();
+    }
+
+    @Override
+    public E poll() {
+
+        if (size == 0) return null;
+
+        Node<E> tmp = head;
+        removeFirst();
+        return tmp.getValue();
+    }
+
+    @Override
+    public E pollFirst() {
+        return poll();
+    }
+
+    @Override
+    public E pollLast() {
+        if (size == 0) return null;
+        return removeLast();
+    }
+
+    @Override
+    public void push(E e) {
+        addFirst(e);
+    }
+
+    @Override
+    public E element() {
+
+        checkEmpty();
+
+        Node<E> tmp = head;
+        head.setValue(null);
+        return tmp.getValue();
+    }
+
+    private static class Node<E> {
+        private Node<E> next;
+        private Node<E> previous;
+
+        private E value;
+
+        Node(){}
+        public Node(Node<E> next, Node<E> previous, E value) {
             this.next = next;
             this.previous = previous;
             this.value = value;
         }
 
-        Node(T value) {
+        Node(E value) {
             this.value = value;
         }
 
-        Node(Node<T> previous, T value) {
+        Node(Node<E> previous, E value) {
             this.previous = previous;
             this.value = value;
         }
 
-        Node<T> getPrevious() {
+        Node<E> getPrevious() {
             return previous;
         }
 
-        void setPrevious(Node<T> previous) {
+        void setPrevious(Node<E> previous) {
             this.previous = previous;
         }
 
-        Node<T> getNext() {
+        Node<E> getNext() {
             return next;
         }
 
-        void setNext(Node<T> next) {
+        void setNext(Node<E> next) {
             this.next = next;
         }
 
-        T getValue() {
+        E getValue() {
             return value;
         }
-        void setValue(T value) {
+        void setValue(E value) {
             this.value = value;
         }
 
     }
 
-    private class MyLinkedListIterator implements Iterator<T> {
+    private class MyLinkedListIterator implements Iterator<E> {
 
-        private Node<T> iterator;
+        private Node<E> iterator;
 
         public MyLinkedListIterator(){
             iterator = new Node<>();
             iterator.next = head;
         }
-
-
 
         @Override
         public boolean hasNext() {
@@ -157,7 +389,7 @@ public class MyLinkedList<T> implements MyList<T>{
         }
 
         @Override
-        public T next() {
+        public E next() {
             iterator = iterator.next;
             return iterator.value;
         }
