@@ -101,8 +101,8 @@ public class MyArrayList<T> implements MyList<T>{
 
     @Override
     public T remove(int index) {
+        if(size < index || index < 0) throw new IndexOutOfBoundsException();
 
-        if(size < index || index < 0) return null;
         T tmp = elementData[index];
         System.arraycopy(elementData, index + 1, elementData, index, size - index - 1);
         elementData[--size] = null;
