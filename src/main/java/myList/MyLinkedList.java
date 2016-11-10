@@ -27,16 +27,24 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
             return true;
         }
 
-        tail.setNext(new Node<>(tail, o));
-        tail = tail.getNext();
+        tail.next = new Node<>(tail, o);
+        tail = tail.next;
         size++;
 
         return true;
     }
 
-    private  void newLink(Node<E> first, Node<E> second){
-        first.setNext(second);
-        second.setPrevious(first);
+    private void newLink(Node<E> first, Node<E> second){
+        first.next = second;
+        second.previous = first;
+    }
+
+    private Node goNodeIndex(Node<E> head, int index){
+        Node<E> iterator = head;
+        for (int i = 1; i <= index; i++) {
+            iterator = iterator.next;
+        }
+        return iterator;
     }
 
     @Override
@@ -49,12 +57,9 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
             return;
         }
 
-        Node<E> iterator = head;
         Node<E> tmp = new Node<>(o);
-        for (int i = 1; i <= index; i++) {
-            iterator = iterator.getNext();
-        }
-        newLink(iterator.getPrevious(), tmp);
+        Node<E> iterator = goNodeIndex(head, index);
+        newLink(iterator.previous, tmp);
         newLink(tmp, iterator);
         size++;
 
@@ -62,10 +67,9 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
     @Override
     public void addFirst(E e) {
-        head.setPrevious(new Node<>(head, null, e));
-        head = head.getPrevious();
+        head.previous = new Node<>(head, null, e);
+        head = head.previous;
         size++;
-        return;
     }
 
     @Override
@@ -77,12 +81,9 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         checkIndex(index);
 
-        Node<E> iterator = head;
-        for (int i = 1; i <= index; i++) {
-            iterator = iterator.getNext();
-        }
+        Node<E> iterator = goNodeIndex(head, index);
 
-        return iterator.getValue();
+        return iterator.value;
     }
 
     @Override
@@ -104,9 +105,9 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         for (int i = 0; i < size; i++) {
             previous = iterator;
-            iterator.setPrevious(null);
-            iterator = iterator.getNext();
-            previous.setNext(null);
+            iterator.previous = null;
+            iterator = iterator.next;
+            previous.next = null;
         }
         size = 0;
     }
@@ -127,20 +128,16 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
         }
         if (index == size - 1){
             removeLast();
-            return head.getValue();
+            return head.value;
         }
 
-        Node<E> iterator = head;
-
-        for (int i = 1; i <= index; i++) {
-            iterator = iterator.getNext();
-        }
+        Node<E> iterator = goNodeIndex(head, index);
         Node<E> tmp = iterator;
-        newLink(iterator.getPrevious(), iterator.getNext());
-        tmp.setPrevious(null);
-        tmp.setNext(null);
+        newLink(iterator.previous, iterator.next);
+        tmp.previous = null;
+        tmp.next = null;
         size--;
-        return head.getValue();
+        return head.value;
     }
 
     @Override
@@ -158,11 +155,11 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
     public E remove() {
         checkEmpty();
         Node<E> iterator = head;
-        head = head.getNext();
-        head.setPrevious(null);
-        iterator.setNext(null);
+        head = head.next;
+        head.previous = null;
+        iterator.next = null;
         size--;
-        return head.getValue();
+        return head.value;
     }
 
     @Override
@@ -176,11 +173,11 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
         checkEmpty();
 
         Node<E> iterator = tail;
-        tail = tail.getPrevious();
-        tail.setNext(null);
-        iterator.setPrevious(null);
+        tail = tail.previous;
+        tail.next = null;
+        iterator.previous = null;
         size--;
-        return tail.getValue();
+        return tail.value;
     }
 
     @Override
@@ -190,7 +187,7 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         for (int i = 0; i < size; i++) {
             if (iterator.value.equals(o)) return i;
-            iterator = iterator.getNext();
+            iterator = iterator.next;
         }
 
         return -1;
@@ -203,33 +200,29 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         if (index == 0){
             Node<E> tmp = head;
-            head = new Node<>(head.getNext(), null, o);
-            tmp.setNext(null);
-            head.getNext().setPrevious(head);
-            return head.getValue();
+            head = new Node<>(head.next, null, o);
+            tmp.next = null;
+            head.next.previous = head;
+            return head.value;
         }
         if (index == size - 1){
             Node<E> tmp = tail;
-            tail = new Node<>(null, tail.getPrevious(), o);
-            tmp.setPrevious(null);
-            tail.getPrevious().setNext(tail);
-            return head.getValue();
+            tail = new Node<>(tail.previous, o);
+            tmp.previous = null;
+            tail.previous.next = tail;
+            return head.value;
         }
 
-        Node<E> iterator = head;
         Node<E> newNode = new Node<>(o);
-
-        for (int i = 1; i <= index; i++) {
-            iterator = iterator.getNext();
-        }
-
+        Node<E> iterator = goNodeIndex(head, index);
         Node<E> tmp = iterator;
-        newLink(iterator.getPrevious(), newNode);
-        newLink(newNode, iterator.getNext());
-        tmp.setNext(null);
-        tmp.setPrevious(null);
 
-        return head.getValue();
+        newLink(iterator.previous, newNode);
+        newLink(newNode, iterator.next);
+        tmp.next = null;
+        tmp.previous = null;
+
+        return head.value;
     }
 
     private void checkEmpty(){
@@ -270,8 +263,8 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
         if (size == 0) return null;
 
         Node<E> tmp = head;
-        head.setValue(null);
-        return tmp.getValue();
+        head.value = null;
+        return tmp.value;
     }
 
     @Override
@@ -284,8 +277,8 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
     public E peekLast() {
         if (size == 0) return null;
         Node<E> tmp = tail;
-        tail.setValue(null);
-        return tmp.getValue();
+        tail.value = null;
+        return tmp.value;
     }
 
     @Override
@@ -295,7 +288,7 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         Node<E> tmp = head;
         removeFirst();
-        return tmp.getValue();
+        return tmp.value;
     }
 
     @Override
@@ -320,8 +313,8 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
         checkEmpty();
 
         Node<E> tmp = head;
-        head.setValue(null);
-        return tmp.getValue();
+        head.value = null;
+        return tmp.value;
     }
 
     private static class Node<E> {
@@ -331,7 +324,7 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
         private E value;
 
         Node(){}
-        public Node(Node<E> next, Node<E> previous, E value) {
+        Node(Node<E> next, Node<E> previous, E value) {
             this.next = next;
             this.previous = previous;
             this.value = value;
@@ -343,29 +336,6 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         Node(Node<E> previous, E value) {
             this.previous = previous;
-            this.value = value;
-        }
-
-        Node<E> getPrevious() {
-            return previous;
-        }
-
-        void setPrevious(Node<E> previous) {
-            this.previous = previous;
-        }
-
-        Node<E> getNext() {
-            return next;
-        }
-
-        void setNext(Node<E> next) {
-            this.next = next;
-        }
-
-        E getValue() {
-            return value;
-        }
-        void setValue(E value) {
             this.value = value;
         }
 
