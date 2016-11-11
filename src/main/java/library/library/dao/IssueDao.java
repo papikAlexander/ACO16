@@ -1,10 +1,8 @@
-package week2.day2.library.dao;
+package library.library.dao;
 
-import week2.day2.library.database.LibraryDB;
-import week2.day2.library.enums.Genre;
-import week2.day2.library.model.Book;
-import week2.day2.library.model.PeriodicalIssue;
-import week2.day2.library.model.Reader;
+import library.library.database.LibraryDB;
+import library.library.enums.Genre;
+import library.library.model.PeriodicalIssue;
 
 import java.util.ArrayList;
 
@@ -23,20 +21,16 @@ public class IssueDao {
         return db.addIssue(issue);
     }
 
-    public boolean deleteIssue(String name, int year, String author, Genre genre){
-        return db.deleteIssue(new PeriodicalIssue(name, year, author, genre));
+    public boolean deleteIssue(PeriodicalIssue issue){
+        return db.deleteIssue(issue);
     }
 
-    public PeriodicalIssue getIssue(String name, int year, String author, Genre genre){
-        return db.getIssue(new PeriodicalIssue(name, year, author, genre));
+    public PeriodicalIssue getIssue(PeriodicalIssue issue){
+        return db.getIssue(issue);
     }
 
-    public boolean findIssue(String name, int year, String author, Genre genre){
-        return db.findIssue(new PeriodicalIssue(name, year, author, genre));
-    }
-
-    public boolean findIssueByName(String name){
-        return db.findIssue(new PeriodicalIssue(name, 0, null, null));
+    public boolean findIssue(PeriodicalIssue issue){
+        return db.findIssue(issue);
     }
 
     public ArrayList<PeriodicalIssue> printIssueFree(){

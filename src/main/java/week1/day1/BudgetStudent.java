@@ -26,4 +26,8 @@ public class BudgetStudent extends Student {
                 "scholarship=" + scholarship +
                 '}';
     }
+
+    public BudgetStudent clone() throws CloneNotSupportedException{
+        return (BudgetStudent) super.clone();
+    }
 }

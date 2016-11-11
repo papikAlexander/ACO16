@@ -1,11 +1,11 @@
-package week2.day2.library;
+package library.library;
 
-import week2.day2.library.conroller.Library;
-import week2.day2.library.enums.Genre;
-import week2.day2.library.model.Book;
-import week2.day2.library.model.Encyclopedia;
-import week2.day2.library.model.PeriodicalIssue;
-import week2.day2.library.model.Reader;
+import library.library.conroller.Library;
+import library.library.enums.Genre;
+import library.library.model.Book;
+import library.library.model.Encyclopedia;
+import library.library.model.PeriodicalIssue;
+import library.library.model.Reader;
 
 /**
  * Created by Alexander on 22.10.2016.

@@ -26,4 +26,8 @@ public class ContractStudent extends Student{
                 "period=" + period +
                 '}';
     }
+
+    public ContractStudent clone() throws CloneNotSupportedException{
+        return (ContractStudent)super.clone();
+    }
 }

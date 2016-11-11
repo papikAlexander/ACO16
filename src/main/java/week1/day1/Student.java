@@ -3,7 +3,7 @@ package week1.day1;
 /**
  * Created by Alexander on 08.10.2016.
  */
-public class Student implements Comparable{
+public class Student implements Comparable, Cloneable{
 
     private String name;
     private String surname;
@@ -15,6 +15,10 @@ public class Student implements Comparable{
         this.surname = surname;
         this.age = age;
         this.averageMark = averageMark;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -55,6 +59,10 @@ public class Student implements Comparable{
             return this.name.compareTo(tmp.name);
         }
         return -1;
+    }
+
+    public Student clone() throws CloneNotSupportedException{
+        return (Student)super.clone();
     }
 }
 

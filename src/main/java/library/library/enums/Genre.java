@@ -1,4 +1,4 @@
-package week2.day2.library.enums;
+package library.library.enums;
 
 /**
  * Created by Alexander on 27.10.2016.

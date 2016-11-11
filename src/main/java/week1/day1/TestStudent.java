@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Created by Alexander on 08.10.2016.
  */
 public class TestStudent {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         Student student = new Student("Nick", "Smith", 25, 4.2);
         BudgetStudent student1 = new BudgetStudent("Nick", "Smith", 20, 3.6, 4000);
         BudgetStudent student2 = new BudgetStudent("Sashka", "Smith", 21, 4, 4000);
@@ -19,8 +19,7 @@ public class TestStudent {
         University university = new University("Art Code", 5);
         group.addStudent(null);
         System.out.println(group);
-        //university.addGroup(group);
-        //System.out.println(university);
+
        // university.addGroup(group);
         //System.out.println(university);
        // university.addGroup(group1);
@@ -32,10 +31,10 @@ public class TestStudent {
         group.addStudent(student3);
         group.addStudent(student4);
         group.addStudent(student1);
-        System.out.println(group);
+       // System.out.println(group);
        // group.addStudent(student5);
-        group.sort();
-        System.out.println(group);
+      //  group.sort();
+       // System.out.println(group);
         //System.out.println(university);
         //university.deleteGroup("ACO17");
        // System.out.println(group);
@@ -46,5 +45,10 @@ public class TestStudent {
        // System.out.println(group);
       //  group.sortStudentByName();
        // System.out.println(group);
+        university.addGroup(group);
+        System.out.println(university);
+        University clone = university.clone();
+        System.out.println(clone);
+
     }
 }

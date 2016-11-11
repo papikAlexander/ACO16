@@ -1,4 +1,4 @@
-package week2.day2.library;
+package library.library;
 
 import org.junit.Test;
 

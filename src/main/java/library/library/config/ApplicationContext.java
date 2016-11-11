@@ -1,8 +1,8 @@
-package week2.day2.library.config;
+package library.library.config;
 
-import week2.day2.library.dao.IssueDao;
-import week2.day2.library.dao.ReaderDao;
-import week2.day2.library.database.LibraryDB;
+import library.library.dao.IssueDao;
+import library.library.dao.ReaderDao;
+import library.library.database.LibraryDB;
 
 /**
  * Created by Alexander on 23.10.2016.

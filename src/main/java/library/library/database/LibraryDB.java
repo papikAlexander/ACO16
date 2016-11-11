@@ -1,8 +1,8 @@
-package week2.day2.library.database;
+package library.library.database;
 
-import week2.day2.library.enums.Access;
-import week2.day2.library.model.PeriodicalIssue;
-import week2.day2.library.model.Reader;
+import library.library.enums.Access;
+import library.library.model.PeriodicalIssue;
+import library.library.model.Reader;
 
 import java.util.ArrayList;
 

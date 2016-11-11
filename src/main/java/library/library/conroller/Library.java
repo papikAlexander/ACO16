@@ -1,14 +1,14 @@
-package week2.day2.library.conroller;
+package library.library.conroller;
 
-import week2.day2.library.comparators.ComparatorIssueByName;
-import week2.day2.library.comparators.ComparatorReaderByName;
-import week2.day2.library.config.ApplicationContext;
-import week2.day2.library.dao.IssueDao;
-import week2.day2.library.dao.ReaderDao;
-import week2.day2.library.enums.Access;
-import week2.day2.library.enums.Genre;
-import week2.day2.library.model.PeriodicalIssue;
-import week2.day2.library.model.Reader;
+import library.library.comparators.ComparatorIssueByName;
+import library.library.comparators.ComparatorReaderByName;
+import library.library.config.ApplicationContext;
+import library.library.dao.IssueDao;
+import library.library.dao.ReaderDao;
+import library.library.enums.Access;
+import library.library.enums.Genre;
+import library.library.model.PeriodicalIssue;
+import library.library.model.Reader;
 
 import java.util.ArrayList;
 
@@ -38,16 +38,16 @@ public class Library {
 
     public boolean deleteReader(String name, String surname){
         if (name == null || surname == null) return false;
-        return readerDao.deleteReader(name, surname);
+        return readerDao.deleteReader(new Reader(name, surname));
     }
 
     public Reader getReader(String name, String surname){
         if (name == null || surname == null) return null;
-        return readerDao.getReader(name, surname);
+        return readerDao.getReader(new Reader(name, surname));
     }
     public boolean findReader(String name, String surname){
         if (name == null || surname == null) return false;
-        return readerDao.findReader(name, surname);
+        return readerDao.findReader(new Reader(name, surname));
     }
 
     public boolean addIssue(PeriodicalIssue issue){
@@ -57,16 +57,16 @@ public class Library {
 
     public boolean deleteIssue(String name, int year, String author, Genre genre){
         if (name == null || year == 0 || author == null || genre == null) return false;
-        return issueDao.deleteIssue(name, year, author, genre);
+        return issueDao.deleteIssue(new PeriodicalIssue(name, year, author, genre));
     }
 
     public PeriodicalIssue getIssue(String name, int year, String author, Genre genre){
         if (name == null || year == 0 || author == null || genre == null) return null;
-        return issueDao.getIssue(name, year, author, genre);
+        return issueDao.getIssue(new PeriodicalIssue(name, year, author, genre));
     }
     public boolean findIssue(String name, int year, String author, Genre genre){
         if (name == null || year == 0 || author == null || genre == null) return false;
-        return issueDao.findIssue(name, year, author, genre);
+        return issueDao.findIssue(new PeriodicalIssue(name, year, author, genre));
     }
 
     public void printReaders(){

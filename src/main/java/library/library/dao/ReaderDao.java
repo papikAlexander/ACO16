@@ -1,7 +1,7 @@
-package week2.day2.library.dao;
+package library.library.dao;
 
-import week2.day2.library.model.Reader;
-import week2.day2.library.database.LibraryDB;
+import library.library.model.Reader;
+import library.library.database.LibraryDB;
 
 import java.util.ArrayList;
 
@@ -20,16 +20,16 @@ public class ReaderDao {
         return db.addReader(reader);
     }
 
-    public boolean deleteReader(String name, String surname){
-        return db.deleteReader(new Reader(name, surname));
+    public boolean deleteReader(Reader reader){
+        return db.deleteReader(reader);
     }
 
-    public Reader getReader(String name, String surname){
-        return db.getReader(new Reader(name, surname));
+    public Reader getReader(Reader reader){
+        return db.getReader(reader);
     }
 
-    public boolean findReader(String name, String surname){
-        return db.findReader(new Reader(name, surname));
+    public boolean findReader(Reader reader){
+        return db.findReader(reader);
     }
 
     public ArrayList<Reader> printReaders(){

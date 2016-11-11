@@ -1,7 +1,7 @@
-package week2.day2.library.model;
+package library.library.model;
 
-import week2.day2.library.enums.Access;
-import week2.day2.library.enums.Genre;
+import library.library.enums.Access;
+import library.library.enums.Genre;
 
 /**
  * Created by Alexander on 16.10.2016.

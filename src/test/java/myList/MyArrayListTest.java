@@ -66,16 +66,6 @@ public class MyArrayListTest implements MyListTest{
     }
 
     @Test
-    public void testListGetNull(){
-
-        myArrayList.add("1");
-        myArrayList.add("5");
-        Object actual = myArrayList.get(20);
-
-        Assert.assertEquals(actual, null);
-    }
-
-    @Test
     public void testListClear(){
 
         myArrayList.add("1");

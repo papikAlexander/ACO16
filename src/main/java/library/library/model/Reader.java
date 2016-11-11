@@ -1,6 +1,6 @@
-package week2.day2.library.model;
+package library.library.model;
 
-import week2.day2.library.enums.Access;
+import library.library.enums.Access;
 
 import java.util.ArrayList;
 

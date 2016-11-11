@@ -3,12 +3,12 @@ package week5.day1.exeptions;
 /**
  * Created by Alexander on 05.11.2016.
  */
-public class MyRuntimeExeptions extends RuntimeException {
+public class MyRuntimeExceptions extends RuntimeException {
 
-    public MyRuntimeExeptions() {
+    public MyRuntimeExceptions() {
     }
 
-    public MyRuntimeExeptions(String message) {
+    public MyRuntimeExceptions(String message) {
         super(message);
     }
 

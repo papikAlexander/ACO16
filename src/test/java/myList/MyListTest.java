@@ -11,10 +11,8 @@ public interface MyListTest {
     void testListIndexAdd();
     void testListSizeAfterAdd();
     void testListGet();
-    void testListGetNull();
     void testListClear();
     void testListContains();
-    void testListContainsAfterClear();
     void testListRemoveIndex();
     void testListRemoveObject();
     void testListSet();

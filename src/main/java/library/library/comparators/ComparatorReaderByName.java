@@ -1,6 +1,6 @@
-package week2.day2.library.comparators;
+package library.library.comparators;
 
-import week2.day2.library.model.Reader;
+import library.library.model.Reader;
 
 import java.util.Comparator;
 
