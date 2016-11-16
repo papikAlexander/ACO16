@@ -27,7 +27,7 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
             return true;
         }
 
-        tail.next = new Node<>(tail, o);
+        tail.next = new Node<>(o, tail);
         tail = tail.next;
         size++;
 
@@ -67,7 +67,7 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
     @Override
     public void addFirst(E e) {
-        head.previous = new Node<>(head, null, e);
+        head.previous = new Node<>(head, e);
         head = head.previous;
         size++;
     }
@@ -200,14 +200,14 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
 
         if (index == 0){
             Node<E> tmp = head;
-            head = new Node<>(head.next, null, o);
+            head = new Node<>(head.next, o);
             tmp.next = null;
             head.next.previous = head;
             return head.value;
         }
         if (index == size - 1){
             Node<E> tmp = tail;
-            tail = new Node<>(tail.previous, o);
+            tail = new Node<>(o, tail.previous);
             tmp.previous = null;
             tail.previous.next = tail;
             return head.value;
@@ -330,12 +330,16 @@ public class MyLinkedList<E> implements MyList<E>, Deque<E>{
             this.value = value;
         }
 
-        Node(E value) {
+        Node(Node<E> next, E value) {
+            this.next = next;
+            this.value = value;
+        }
+        Node(E value, Node<E> previous) {
+            this.previous = previous;
             this.value = value;
         }
 
-        Node(Node<E> previous, E value) {
-            this.previous = previous;
+        Node(E value) {
             this.value = value;
         }
 
